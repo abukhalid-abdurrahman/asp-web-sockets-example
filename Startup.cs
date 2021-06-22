@@ -1,4 +1,3 @@
-using System.Net.WebSockets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,14 +9,12 @@ namespace WebSockets
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, ISocketsHandler socketsHandler)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            SocketsHandler = socketsHandler;
         }
 
         private IConfiguration Configuration { get; }
-        private ISocketsHandler SocketsHandler { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -29,7 +26,7 @@ namespace WebSockets
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISocketsHandler socketsHandler)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebSockets v1"));
@@ -42,7 +39,7 @@ namespace WebSockets
                     if (context.WebSockets.IsWebSocketRequest)
                     {
                         var webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                        await SocketsHandler.Handle(context, webSocket);
+                        await socketsHandler.Handle(context, webSocket);
                     }
                     else
                     {
