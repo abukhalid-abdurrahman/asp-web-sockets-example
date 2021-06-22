@@ -23,7 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a3f8636-d007-459f-9d56-fb732c3844f8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/SocketsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/SocketsHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +38,8 @@
       <list>
         <option value="$PROJECT_DIR$/Program.cs" />
         <option value="$PROJECT_DIR$/Startup.cs" />
+        <option value="$PROJECT_DIR$/Services/ISocketsHandler.cs" />
+        <option value="$PROJECT_DIR$/Services/SocketsHandler.cs" />
       </list>
     </option>
   </component>
@@ -92,7 +94,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624342103698</updated>
-      <workItem from="1624342105463" duration="309000" />
+      <workItem from="1624342105463" duration="637000" />
     </task>
     <servers />
   </component>
