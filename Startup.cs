@@ -4,21 +4,25 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using WebSockets.Services;
 
 namespace WebSockets
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, ISocketsHandler socketsHandler)
         {
             Configuration = configuration;
+            SocketsHandler = socketsHandler;
         }
 
         private IConfiguration Configuration { get; }
+        private ISocketsHandler SocketsHandler { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<ISocketsHandler, SocketsHandler>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "WebSockets", Version = "v1"});
@@ -37,8 +41,8 @@ namespace WebSockets
                 {
                     if (context.WebSockets.IsWebSocketRequest)
                     {
-                        WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                        await 
+                        var webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                        await SocketsHandler.Handle(context, webSocket);
                     }
                     else
                     {
